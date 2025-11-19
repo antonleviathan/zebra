@@ -1,0 +1,25 @@
+
+
+* imporvement could be made if zebrad could parse env vars for itself in order to eliminate busybox script from the final layer
+
+* much higher maintenance and much lower security toolchain git repo
+	* alternative approach is to wrap apt get with a tool that implements package arvhive and fully hash locked deps even after keys expires
+	* pros: 
+		* does get you deterministic output
+		* you get to continue using debian
+		* https://git.distrust.co/public/toolchain
+	* cons: 
+		* highly complex scripting around debian 
+		* requires hardcoding a non-signed debian base image
+		* toolchain is deprecated and will not be maintained, so you need to maintain any ad-hoc tools internally
+		* unreliable debian archives - 2 servers worldwide
+		* debian  does not solve for full source bootstrapping, opening doors for covert supply chain attacks
+		* no forced code review, maintainers can merge their own code
+		* no forced determinism, maintainers can tamper with binaries
+		* forced to use glibc over leaner alternatives like musl
+		* forced to link all binaries against libgcc vs compiler-rt / libunwind
+
+
+* i will add a script that automatically bumps the pins for convenience
+* for platfrom support we are switching to be llvm native which will allow you to target anything llvm can target
+* build complexity we believe that build complexity for deterministic builds with stagex is much lower than what you would need to do with debian or guix, but with higher security guarantees
