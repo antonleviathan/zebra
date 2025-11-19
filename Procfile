@@ -1,7 +1,7 @@
 # Caution Build Configuration
 
 # Container file to build (Dockerfile or Containerfile)
-containerfile: Dockerfile
+containerfile: ./docker/Dockerfile
 
 build: ./docker/build.sh
 
