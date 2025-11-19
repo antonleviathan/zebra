@@ -3,7 +3,7 @@
 # Container file to build (Dockerfile or Containerfile)
 containerfile: Dockerfile
 
-build: ./utils/build.sh
+build: ./docker/build.sh
 
 # Path to binary after build (will be extracted from the final layer)
 binary: /usr/local/bin/zebrad
