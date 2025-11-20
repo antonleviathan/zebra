@@ -9,7 +9,7 @@ build: ./docker/build.sh
 binary: /usr/local/bin/zebrad
 
 # Run command for the application
-run: /usr/local/bin/zebrad
+run: /usr/local/bin/zebrad --help
 
 # Enable debug mode to see enclave console output
 debug: true
