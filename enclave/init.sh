@@ -9,9 +9,39 @@ echo "Setting up network loopback..."
 
 echo "127.0.0.1   localhost" > /etc/hosts
 
-echo "nameserver 127.0.0.1" > /etc/resolv.conf
-
 echo "Network loopback configured"
+
+echo "Setting up vsock network tunnel to parent..."
+# Connect to parent's network proxy via vsock port 3
+# This creates a virtual ethernet interface (eth0) connected to the parent
+/bin/socat TUN,tun-type=tap,iff-no-pi,iff-up,tun-name=eth0 VSOCK-CONNECT:3:3 &
+SOCAT_PID=$!
+echo "VSock tunnel started (PID: $SOCAT_PID)"
+
+# Wait for interface to come up
+/bin/busybox sleep 2
+
+# Verify eth0 exists
+if /bin/busybox ip link show eth0 2>/dev/null; then
+    echo "eth0 interface created successfully"
+
+    # Get IP address via DHCP from parent
+    echo "Requesting IP via DHCP..."
+    /bin/busybox udhcpc -i eth0 -s /bin/udhcpc-script -q
+
+    # Show network configuration
+    echo "Network configuration:"
+    /bin/busybox ip addr show eth0
+    /bin/busybox ip route show
+
+    # Update resolv.conf with DNS from parent (10.0.100.1)
+    echo "nameserver 10.0.100.1" > /etc/resolv.conf
+
+    echo "Network tunnel established successfully"
+else
+    echo "WARNING: Failed to create eth0 interface, running without internet access"
+    echo "nameserver 127.0.0.1" > /etc/resolv.conf
+fi
 
 echo "Loading NSM kernel module..."
 if [ -f /nsm.ko ]; then

@@ -21,4 +21,4 @@ cpus: 3
 memory_mb: 4096
 
 # Enable debug mode to see enclave console output
-debug: true
+debug: false
