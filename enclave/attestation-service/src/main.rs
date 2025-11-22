@@ -65,42 +65,47 @@ async fn main() {
             "service": "attestation"
         })));
 
-    // Attestation endpoint (GET)
+    // Attestation endpoint (GET) - DEPRECATED: Returns error, use POST with nonce
     let attestation = warp::path("attestation")
         .and(warp::get())
         .map(|| {
-            match get_attestation_document(None, None, None) {
-                Ok(doc) => {
-                    let encoded = base64::encode(&doc);
-                    warp::reply::json(&AttestationResponse {
-                        attestation_document: encoded,
-                        pcrs: None,
-                        error: None,
-                    })
-                }
-                Err(e) => {
-                    eprintln!("Attestation error: {}", e);
-                    warp::reply::json(&AttestationResponse {
-                        attestation_document: String::new(),
-                        pcrs: None,
-                        error: Some(e),
-                    })
-                }
-            }
+            eprintln!("WARNING: GET /attestation is deprecated and insecure (no replay attack protection)");
+            warp::reply::json(&AttestationResponse {
+                attestation_document: String::new(),
+                pcrs: None,
+                error: Some("GET /attestation is deprecated. Use POST with nonce field to prevent replay attacks.".to_string()),
+            })
         });
 
-    // Attestation with custom data endpoint (POST)
+    // Attestation with nonce challenge endpoint (POST)
+    // REQUIRED: nonce field must be provided to prevent replay attacks
     let attestation_post = warp::path("attestation")
         .and(warp::post())
         .and(warp::body::json())
         .map(|req: AttestationRequest| {
+            // Require nonce for replay attack protection
+            let nonce = match req.nonce {
+                Some(n) if !n.is_empty() => n,
+                _ => {
+                    eprintln!("ERROR: Attestation request missing nonce field");
+                    return warp::reply::json(&AttestationResponse {
+                        attestation_document: String::new(),
+                        pcrs: None,
+                        error: Some("Nonce is required for attestation requests (replay attack protection)".to_string()),
+                    });
+                }
+            };
+
+            println!("Attestation request with nonce ({} bytes)", nonce.len());
+
             match get_attestation_document(
                 req.user_data.as_deref(),
-                req.nonce.as_deref(),
+                Some(&nonce),
                 req.public_key.as_deref(),
             ) {
                 Ok(doc) => {
                     let encoded = base64::encode(&doc);
+                    println!("Attestation document generated: {} bytes", encoded.len());
                     warp::reply::json(&AttestationResponse {
                         attestation_document: encoded,
                         pcrs: None,
