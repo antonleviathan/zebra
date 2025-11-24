@@ -14,6 +14,8 @@ binary: /usr/local/bin/zebrad
 # Run command for the application
 run: /usr/local/bin/zebrad
 
+source: https://github.com/antonleviathan/zebra/archive/deterministic-bootstrapped-build.tar.gz
+
 # Resource requirements for the enclave
 # CPU count must be full cores (1, 2, 3, etc.), leaving at least 1 for parent
 cpus: 3
