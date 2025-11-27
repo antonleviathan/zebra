@@ -1,26 +1,14 @@
-# Caution Build Configuration
-
-# Container file to build (Dockerfile or Containerfile)
-containerfile: docker/Dockerfile
-
+# Custom build process (uses oci_tarball)
 build: ./docker/build.sh
-
-# OCI tarball location (if build script exports to OCI instead of loading into Docker)
 oci_tarball: build/oci/zebra.tar
 
-# Path to binary after build (will be extracted from the final layer)
+# Required
 binary: /usr/local/bin/zebrad
-
-# Run command for the application
 run: /usr/local/bin/zebrad
 
+# For reproducible verification
 source: https://github.com/antonleviathan/zebra/archive/deterministic-bootstrapped-build.tar.gz
 
-# Resource requirements for the enclave
-# CPU count must be full cores (1, 2, 3, etc.), leaving at least 1 for parent
+# Resource requirements (defaults are 2 CPUs, 512MB)
 cpus: 3
-# Memory in MB (MiB will be calculated)
 memory_mb: 4096
-
-# Enable debug mode to see enclave console output
-debug: false
