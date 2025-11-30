@@ -1,14 +1,57 @@
-# Custom build process (uses oci_tarball)
+# Caution Procfile
+# To learn more visit https://git.distrust.co/public/caution
+
+# ==============================================================================
+# REQUIRED
+# ==============================================================================
+
+# Path to the binary to extract from the container and run
+binary: /usr/local/bin/zebrad
+
+# ==============================================================================
+# OPTIONAL - Build Configuration
+# ==============================================================================
+
+# Build command (default: docker build -t app .)
 build: ./docker/build.sh
 oci_tarball: build/oci/zebra.tar
 
-# Required
-binary: /usr/local/bin/zebrad
-run: /usr/local/bin/zebrad
+# Dockerfile location (default: Dockerfile)
+# containerfile: Dockerfile
 
-# For reproducible verification
-source: https://github.com/antonleviathan/zebra/archive/deterministic-bootstrapped-build.tar.gz
+# For custom build scripts that produce OCI tarballs:
+# build: ./docker/build.sh
+# oci_tarball: build/oci/myapp.tar
 
-# Resource requirements (defaults are 2 CPUs, 512MB)
-cpus: 3
+# ==============================================================================
+# OPTIONAL - Runtime Configuration
+# ==============================================================================
+
+# Run command (default: same as binary)
+# Use this to pass arguments, e.g.: /app/myapp serve --config /etc/config.toml
+# run: /app/myapp
+
+# ==============================================================================
+# OPTIONAL - Reproducibility
+# ==============================================================================
+
+# Source URL for reproducible verification (${COMMIT} is replaced with commit SHA)
+source: https://github.com/antonleviathan/zebra/archive/${COMMIT}.tar.gz
+
+# Metadata string embedded in the manifest (for versioning, etc.)
+# metadata: v1.0.0
+
+# ==============================================================================
+# OPTIONAL - Resources
+# ==============================================================================
+
+# Memory allocation in MB (default: 512)
 memory_mb: 4096
+
+# CPU count (default: 2)
+cpus: 3
+
+# Debug mode - enables console output (default: false, reduces security)
+# debug: false
+#
+nocache: true
