@@ -46,7 +46,7 @@ source: https://github.com/antonleviathan/zebra/archive/${COMMIT}.tar.gz
 # ==============================================================================
 
 # Memory allocation in MB (default: 512)
-memory_mb: 16000
+memory_mb: 4096
 
 # CPU count (default: 2)
 cpus: 3
