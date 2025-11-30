@@ -54,4 +54,3 @@ cpus: 3
 # Debug mode - enables console output (default: false, reduces security)
 # debug: false
 #
-nocache: true
