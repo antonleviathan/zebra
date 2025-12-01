@@ -53,4 +53,5 @@ cpus: 3
 
 # Debug mode - enables console output (default: false, reduces security)
 # debug: false
-#
+
+ports: 8232, 18232, 8233, 18233
