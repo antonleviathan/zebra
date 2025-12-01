@@ -29,7 +29,7 @@ oci_tarball: build/oci/zebra.tar
 
 # Run command (default: same as binary)
 # Use this to pass arguments, e.g.: /app/myapp serve --config /etc/config.toml
-run: ZEBRA_RPC__LISTEN_ADDR=0.0.0.0:8232 /usr/local/bin/zebrad start
+run: export ZEBRA_RPC__LISTEN_ADDR=0.0.0.0:8232 && /usr/local/bin/zebrad start
 
 # ==============================================================================
 # OPTIONAL - Reproducibility
@@ -52,7 +52,7 @@ memory_mb: 1024
 cpus: 3
 
 # Debug mode - enables console output (default: false, reduces security)
-# debug: false
+debug: true
 
 ports: 8232, 18232, 8233, 18233
 nocache: true
