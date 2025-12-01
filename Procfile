@@ -29,7 +29,7 @@ oci_tarball: build/oci/zebra.tar
 
 # Run command (default: same as binary)
 # Use this to pass arguments, e.g.: /app/myapp serve --config /etc/config.toml
-# run: /app/myapp
+run: ZEBRA_RPC__LISTEN_ADDR=0.0.0.0:8232 /usr/local/bin/zebrad start
 
 # ==============================================================================
 # OPTIONAL - Reproducibility
