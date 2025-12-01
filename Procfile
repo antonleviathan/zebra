@@ -55,3 +55,4 @@ cpus: 3
 # debug: false
 
 ports: 8232, 18232, 8233, 18233
+nocache: true
