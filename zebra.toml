@@ -1,7 +1,5 @@
 [health]
 listen_addr = "0.0.0.0:8080"
-min_connected_peers = 0
-ready_max_blocks_behind = 100
 
 [network]
 listen_addr = "0.0.0.0:8233"

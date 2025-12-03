@@ -89,6 +89,7 @@ use zebra_rpc::{methods::RpcImpl, server::RpcServer, SubmitBlockChannel};
 use crate::{
     application::{build_version, user_agent, LAST_WARN_ERROR_LOG_SENDER},
     components::{
+        health,
         inbound::{self, InboundSetupData, MAX_INBOUND_RESPONSE_TIME},
         mempool::{self, Mempool},
         sync::{self, show_block_chain_progress, VERIFICATION_PIPELINE_SCALING_MULTIPLIER},
@@ -289,6 +290,10 @@ impl StartCmd {
                 tokio::spawn(std::future::pending().in_current_span())
             }
         };
+
+        // Launch health check server (always on port 8080)
+        info!("spawning health check server");
+        let health_task_handle = health::start().await;
 
         // Start concurrent tasks which don't add load to other tasks
         info!("spawning block gossip task");
@@ -530,6 +535,7 @@ impl StartCmd {
         progress_task_handle.abort();
         end_of_support_task_handle.abort();
         miner_task_handle.abort();
+        health_task_handle.abort();
 
         // startup tasks
         state_checkpoint_verify_handle.abort();

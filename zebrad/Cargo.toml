@@ -82,7 +82,7 @@ elasticsearch = [
 # Tracing and monitoring
 sentry = ["dep:sentry"]
 journald = ["tracing-journald"]
-filter-reload = ["hyper", "http-body-util", "hyper-util", "bytes"]
+filter-reload = ["bytes"]
 
 progress-bar = [
     "howudoin",
@@ -222,10 +222,10 @@ inferno = { workspace = true, optional = true }
 # prod feature journald
 tracing-journald = { workspace = true, optional = true }
 
-# prod feature filter-reload
-hyper = { workspace = true, features = ["http1", "http2", "server"], optional = true }
-http-body-util = { workspace = true, optional = true }
-hyper-util = { workspace = true, optional = true }
+# prod feature filter-reload (also used by health module)
+hyper = { workspace = true, features = ["http1", "http2", "server"] }
+http-body-util = { workspace = true }
+hyper-util = { workspace = true }
 bytes = { workspace = true, optional = true }
 
 # prod feature prometheus
