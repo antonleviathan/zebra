@@ -7,6 +7,7 @@ use std::{convert::Infallible, sync::Arc};
 
 use hyper::{
     body::Incoming,
+    header::CONTENT_TYPE,
     server::conn::http1,
     service::service_fn,
     Method, Request, Response, StatusCode,
@@ -26,19 +27,22 @@ async fn handle_request(req: Request<Incoming>) -> Result<Response<Body>, Infall
         (&Method::GET, "/healthy") => {
             Response::builder()
                 .status(StatusCode::OK)
-                .body(Body::from("healthy\n"))
+                .header(CONTENT_TYPE, "application/json")
+                .body(Body::from(r#"{"status":"healthy"}"#))
                 .unwrap()
         }
         (&Method::GET, "/ready") => {
             Response::builder()
                 .status(StatusCode::OK)
-                .body(Body::from("ready\n"))
+                .header(CONTENT_TYPE, "application/json")
+                .body(Body::from(r#"{"status":"ready"}"#))
                 .unwrap()
         }
         _ => {
             Response::builder()
                 .status(StatusCode::NOT_FOUND)
-                .body(Body::from("not found\n"))
+                .header(CONTENT_TYPE, "application/json")
+                .body(Body::from(r#"{"error":"not found"}"#))
                 .unwrap()
         }
     };
