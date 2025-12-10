@@ -3,3 +3,6 @@ listen_addr = "0.0.0.0:8080"
 
 [network]
 listen_addr = "0.0.0.0:8233"
+
+[rpc]
+listen_addr = "127.0.0.1:8232"
