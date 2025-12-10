@@ -7,3 +7,4 @@ memory_mb: 4096
 cpus: 3
 debug: true
 ports: 8232, 18232, 8233, 18233
+nocache: true
