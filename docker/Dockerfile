@@ -258,6 +258,7 @@ WORKDIR ${HOME}
 
 COPY --from=release /usr/local/bin/zebrad /usr/local/bin/
 COPY --chown=${UID}:${GID} ./docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY --chown=${UID}:${GID} ./zebra.toml ${HOME}/.config/zebrad.toml
 
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD ["zebrad"]
