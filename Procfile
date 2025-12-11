@@ -1,4 +1,3 @@
-binary: /usr/local/bin/zebrad
 build: ./docker/build.sh
 run: /usr/local/bin/zebrad -c /home/zebra/.config/zebrad.toml start
 oci_tarball: build/oci/zebra.tar
