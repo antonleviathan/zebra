@@ -5,5 +5,5 @@ source: https://github.com/antonleviathan/zebra/archive/${COMMIT}.tar.gz
 memory_mb: 7800
 cpus: 4
 debug: true
-ports: 8232, 18232, 8233, 18233
+ports: 8232, 8233
 nocache: true
