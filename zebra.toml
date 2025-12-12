@@ -61,9 +61,10 @@ network = "Mainnet"
 peerset_initial_target_size = 25
 
 [rpc]
+listen_addr = "0.0.0.0:8232"
 cookie_dir = "/home/zebra/.cache/zebra"
 debug_force_finished_sync = false
-enable_cookie_auth = true
+enable_cookie_auth = false
 parallel_cpu_threads = 0
 
 [state]
