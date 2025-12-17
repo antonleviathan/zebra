@@ -1,7 +1,8 @@
 build: ./docker/build.sh
 run: /usr/local/bin/zebrad -c /home/zebra/.config/zebrad.toml start
 oci_tarball: build/oci/zebra.tar
-source: https://github.com/antonleviathan/zebra/archive/${COMMIT}.tar.gz
+sources: git@github.com:antonleviathan/zebra.git
+
 memory_mb: 18000
 cpus: 4
 debug: true
