@@ -20,7 +20,7 @@ cache_dir = "/home/zebra/.cache/zebra"
 # The RPC server is disabled by default. To enable it, uncomment one of the
 # lines below and alternatively set your own port.
 
-# listen_addr = "0.0.0.0:8232" # Mainnet
+listen_addr = "0.0.0.0:8232" # Mainnet
 # listen_addr = "0.0.0.0:18232" # Testnet
 
 cookie_dir = "/home/zebra/.cache/zebra"
