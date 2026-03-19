@@ -295,6 +295,7 @@ USER ${UID}:${GID}
 WORKDIR ${HOME}
 
 COPY --link --from=release /usr/local/bin/zebrad /usr/local/bin/
+COPY --link --chown=${UID}:${GID} ./docker/default-zebra-config.toml ${HOME}/.config/zebrad.toml
 COPY --link --chown=${UID}:${GID} ./docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT [ "entrypoint.sh" ]
