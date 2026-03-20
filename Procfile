@@ -1,7 +1,7 @@
 build: ./docker/build.sh
 run: /usr/local/bin/zebrad -c /home/zebra/.config/zebrad.toml start
 oci_tarball: build/oci/zebra.tar
-app_sources: https://github.com/antonleviathan/zebra/archive/${COMMIT}.tar.gz
+app_sources: https://github.com/antonleviathan/zebra
 memory_mb: 18000
 domain: node.zcash.sh
 cpus: 4
