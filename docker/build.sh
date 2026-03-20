@@ -3,7 +3,7 @@
 set -e
 
 DIR="$( cd "$( dirname "$0" )" && pwd )"
-REPO_ROOT="$(git rev-parse --show-toplevel)"
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || cd "$DIR/.." && pwd)"
 PLATFORM="linux/amd64"
 OCI_OUTPUT="$REPO_ROOT/build/oci"
 DOCKERFILE="$REPO_ROOT/docker/Dockerfile.deterministic"
