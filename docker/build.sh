@@ -10,7 +10,6 @@ DOCKERFILE="$REPO_ROOT/docker/Dockerfile.deterministic"
 NAME=zebra
 
 export DOCKER_BUILDKIT=1
-export SOURCE_DATE_EPOCH=1
 
 echo $DOCKERFILE
 mkdir -p $OCI_OUTPUT
